@@ -2,7 +2,6 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
   "scripts": {
     "start": "rm -rf dist .parcel-cache && npx parcel index.html",
     "build": "parcel build index.html --dist-dir ../backend/public"
