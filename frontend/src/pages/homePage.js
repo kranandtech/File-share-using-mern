@@ -45,6 +45,7 @@ const HomePage = () => {
     };
 
     const handleAllowCreateFolder = () => {
+        setNewFolder(""); // Clear the folder name input when opening the modal
         setShowCreateFolder(true);
     };
 
@@ -56,6 +57,7 @@ const HomePage = () => {
             });
             getFileFolders(parentFolder._id);
             setShowCreateFolder(false);
+            setNewFolder(""); // Clear the folder name input when closing the modal
         }
     };
 
@@ -90,6 +92,11 @@ const HomePage = () => {
         }
     };
 
+    const closeModal = () => {
+        setShowCreateFolder(false);
+        setNewFolder(""); // Clear the folder name input when closing the modal
+    };
+
     return (
         <div className="homepage-main-container">
             <Navbar />
@@ -111,9 +118,9 @@ const HomePage = () => {
 
             {/* Modal and Overlay */}
             {showCreateFolder && (
-                <div className="modal-overlay" onClick={() => setShowCreateFolder(false)}>
+                <div className="modal-overlay" onClick={closeModal}>
                     <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="close-button" onClick={() => setShowCreateFolder(false)}></button>
+                        <button className="close-button" onClick={closeModal}></button>
                         <input
                             value={newFolder}
                             onChange={(e) => setNewFolder(e.target.value)}
