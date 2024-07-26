@@ -1,0 +1,53 @@
+/* Navbar.css */
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensure the navbar spans the full width */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.navbar-left-items {
+    flex-grow: 1;
+}
+
+.navbar-left-items h3 {
+    margin: 0;
+    color: #202124;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.navbar-right-items {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right-items button {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 16px;
+    transition: background-color 0.3s;
+}
+
+.navbar-right-items button:hover {
+    background-color: #155ab6;
+}
+
+.navbar {
+    width: 100%;
+    padding: 8px 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdcdc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}

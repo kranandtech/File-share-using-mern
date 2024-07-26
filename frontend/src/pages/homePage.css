@@ -1,0 +1,247 @@
+/* Apply box-sizing to all elements */
+* {
+    box-sizing: border-box;
+}
+
+/* Container for the main page */
+.homepage-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+    background-color: #f1f3f4;
+    min-height: 100vh;
+}
+
+/* Main heading styling */
+h3 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    color: #202124;
+}
+
+/* Common button styling */
+button {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #155ab6;
+}
+
+/* Styling for file input */
+input[type="file"] {
+    display: block; /* Ensure the file input is visible */
+    margin: 16px 0; /* Add vertical spacing for better layout */
+}
+
+/* Styling for file upload input specifically */
+.file-upload-input {
+    margin: 16px;
+}
+
+/* Breadcrumb styling */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+    display: flex;
+    gap: 8px;
+}
+
+/* Breadcrumb items styling */
+ul li {
+    cursor: pointer;
+    font-size: 18px;
+    color: #1a73e8;
+    font-weight: 500;
+}
+
+/* Breadcrumb item hover effect */
+ul li:hover {
+    text-decoration: underline;
+}
+
+/* Create folder popup styling */
+.create-folder-popup {
+    margin: 24px;
+    padding: 24px;
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Set a fixed width for the popup */
+}
+
+/* Popup input styling */
+.create-folder-popup input {
+    padding: 8px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+/* Popup buttons styling */
+.create-folder-popup button {
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Popup button hover effect */
+.create-folder-popup button:hover {
+    background-color: #155ab6;
+}
+
+/* Container for file/folder grid with padding */
+.file-folder-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px; /* Increased gap between items */
+    margin: 16px 0;
+    padding: 20px; /* Add padding around the container */
+    width: 100%; /* Ensure the grid spans full width */
+    box-sizing: border-box; /* Ensure padding is included in the total width */
+}
+
+/* Base styling for file/folder items */
+.file-folder-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    width: 150px; /* Fixed width */
+    padding: 16px;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    position: relative; /* For positioning delete button */
+    text-align: center; /* Center text alignment */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Hover effect for file/folder items */
+.file-folder-item:hover {
+    background-color: #f1f3f4;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Folder item specific styling */
+.folder-item {
+    background-color: #e8f0fe;
+}
+
+/* File item specific styling */
+.file-item {
+    background-color: #fbe9e7;
+}
+
+/* File/folder name styling */
+.file-folder-item p {
+    margin: 0;
+    color: #202124;
+    font-size: 14px;
+    text-align: center;
+    overflow-wrap: break-word; /* Allow long words to wrap */
+    word-break: break-word; /* Ensure words break properly */
+    white-space: normal; /* Allow wrapping */
+    text-overflow: ellipsis; /* Handle overflow with ellipsis */
+    line-height: 1.4; /* Adjust line height for better readability */
+}
+
+/* Delete button styling */
+.delete-button {
+    background: url('../../public/assets/trash-icon.png') no-repeat center center; /* Path relative to the public directory */
+    background-size: 20px 20px; /* Adjust size as needed */
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    opacity: 0; /* Hide delete button initially */
+    transition: opacity 0.3s; /* Smooth transition for button appearance */
+}
+
+/* Show delete button on hover */
+.file-folder-item:hover .delete-button {
+    opacity: 1;
+}
+
+/* Overlay to blur the background */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 999; /* Ensure it's above other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Modal popup styling */
+.modal-content {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    width: 300px; /* Fixed width for the popup */
+    max-width: 100%; /* Responsive width */
+    position: relative;
+}
+
+/* Close button styling */
+.close-button {
+    background: url('../../public/assets/close_icon.png') no-repeat center center;
+    background-size: 16px 16px; /* Adjust size as needed */
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+/* Loading spinner styling */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1); /* Light grey background */
+    border-left: 4px solid #1a73e8; /* Blue spinner */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto; /* Center the spinner */
+}
+
+/* Spinner animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
