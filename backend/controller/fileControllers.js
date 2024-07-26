@@ -7,7 +7,6 @@ const createFileDocumentInMongoDB = async (req, res) => {
     try {
         const data = req.file;
         const { parentId } = req.body;
-
         const { _id } = req.user;
 
         const file = await FileFolderModel.create({
@@ -18,8 +17,7 @@ const createFileDocumentInMongoDB = async (req, res) => {
             metadata: { multer: data },
         });
 
-        res.status(201);
-        res.json({
+        res.status(201).json({
             status: "in-progress",
             data: {
                 file: file,
@@ -28,9 +26,7 @@ const createFileDocumentInMongoDB = async (req, res) => {
 
         return file;
     } catch (err) {
-        console.log("------------------------");
-        console.log(err);
-        console.log("------------------------");
+        console.error("Error creating file document:", err);
         res.status(500).json({
             status: "fail",
             message: "Internal Server Error",
@@ -38,6 +34,7 @@ const createFileDocumentInMongoDB = async (req, res) => {
         return false;
     }
 };
+
 
 const uploadFileToCloudinary = async (file) => {
     try {
@@ -46,41 +43,29 @@ const uploadFileToCloudinary = async (file) => {
             timeout: 60000,
         });
 
-        try {
-            await FileFolderModel.findByIdAndUpdate(file._id, {
-                link: result.secure_url || result.url,
-                "metadata.cloudinary": result,
-            });
+        await FileFolderModel.findByIdAndUpdate(file._id, {
+            link: result.secure_url || result.url,
+            "metadata.cloudinary": result,
+        });
 
-            return true;
-        } catch (err) {
-            console.log("---------------------------------");
-            console.log("❌❌❌❌ File UPDATE Error ❌❌❌❌");
-            console.log(err);
-            console.log("---------------------------------");
-            return false;
-        }
+        return true;
     } catch (err) {
-        console.log("---------------------------------");
-        console.log("❌❌❌❌ Cloudinary Error ❌❌❌❌");
-        console.log(err);
-        console.log("---------------------------------");
+        console.error("Error uploading file to Cloudinary:", err);
         return false;
     }
 };
+
 
 const deleteFileFromServer = async (file) => {
     try {
         await fsPromises.rm(file.metadata.multer.path);
         console.log("File deleted ✅");
     } catch (err) {
-        console.log("---------------------------------");
-        console.log("❌❌❌❌ File Deletion from Server Failed ❌❌❌❌");
-        console.log(err);
-        console.log("---------------------------------");
+        console.error("Error deleting file from server:", err);
         return false;
     }
 };
+
 
 const createFile = async (req, res) => {
     try {
@@ -88,18 +73,15 @@ const createFile = async (req, res) => {
         if (documentCreated) {
             const isFileUploadedToCloudinary = await uploadFileToCloudinary(documentCreated);
             if (isFileUploadedToCloudinary) {
-                deleteFileFromServer(documentCreated);
+                await deleteFileFromServer(documentCreated);
             }
         }
     } catch (err) {
-        console.log("------------------------");
-        console.log(err);
-        console.log("------------------------");
+        console.error("Error in createFile function:", err);
         res.status(500).json({
             status: "fail",
             message: "Internal Server Error",
         });
     }
 };
-
 module.exports = { createFile };
