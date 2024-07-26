@@ -1,24 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import useCreateFolder from "../hooks/useCreateFolder";
 import useGetFileFolders from "../hooks/useGetFileFolders";
 import useUploadFile from "../hooks/useUploadFile";
-import useDeleteFileFolder from "../hooks/useDeleteFileFolder"; // Import delete hook
-import './homePage.css'; // Import the CSS file
+import useDeleteFileFolder from "../hooks/useDeleteFileFolder";
+import './homePage.css';
 
 const HomePage = () => {
     const [newFolder, setNewFolder] = useState("");
     const inputRef = useRef(null);
     const [showCreateFolder, setShowCreateFolder] = useState(false);
-    const [loading, setLoading] = useState(false); // Add loading state
+    const [loading, setLoading] = useState(false);
     const { createFolder } = useCreateFolder();
     const { getFileFolders, fileFolders } = useGetFileFolders();
-    const { deleteFileFolder } = useDeleteFileFolder(); // Use delete hook
+    const { deleteFileFolder } = useDeleteFileFolder();
     const auth = useSelector((state) => state.auth);
     const navigate = useNavigate();
-
+    const { isUploadAllowed, uploadFile } = useUploadFile();
     const [folderStructure, setFolderStructure] = useState([{ _id: null, name: "Cloud Home" }]);
     const parentFolder = folderStructure[folderStructure.length - 1];
 
@@ -26,7 +26,7 @@ const HomePage = () => {
         if (auth.isAuthorized) {
             getFileFolders(parentFolder._id);
         } else {
-            navigate("/login"); // Redirect to login if not authenticated
+            navigate("/login");
         }
     }, [auth.isAuthorized, parentFolder._id, getFileFolders, navigate]);
 
@@ -64,13 +64,13 @@ const HomePage = () => {
         setFolderStructure(newFolderStructure);
     };
 
-    const { isUploadAllowed, uploadFile } = useUploadFile();
     const handleFileUpload = async (e) => {
         if (isUploadAllowed) {
-            const file = e.target.files;
+            const file = e.target.files[0];
             await uploadFile({
-                file: file[0],
+                file,
                 parentId: parentFolder._id,
+                setLoading,
             });
             getFileFolders(parentFolder._id);
         } else {
@@ -81,9 +81,9 @@ const HomePage = () => {
     const handleDelete = async (id) => {
         const confirmed = window.confirm("Are you sure you want to delete this item?");
         if (confirmed) {
-            setLoading(true); // Show loading indicator
+            setLoading(true);
             const success = await deleteFileFolder(id);
-            setLoading(false); // Hide loading indicator
+            setLoading(false);
             if (success) {
                 getFileFolders(parentFolder._id);
             }
@@ -120,13 +120,12 @@ const HomePage = () => {
                             placeholder="Folder Name"
                         />
                         <button className="create-folder-popup-button" onClick={handleCreateFolder}>Create</button>
-                        
                     </div>
                 </div>
             )}
 
             <div className="file-folder-container">
-                {loading && <div className="spinner"></div>} {/* Show spinner while loading */}
+                {loading && <div className="spinner"></div>}
                 {fileFolders && fileFolders.length > 0 ? (
                     fileFolders.map((elem) => (
                         <div
@@ -135,7 +134,7 @@ const HomePage = () => {
                             onDoubleClick={() => handleDoubleClick(elem)}
                         >
                             <p>{elem.name}</p>
-                            <button className="delete-button" onClick={() => handleDelete(elem._id)}></button> {/* Delete button */}
+                            <button className="delete-button" onClick={() => handleDelete(elem._id)}></button>
                         </div>
                     ))
                 ) : (

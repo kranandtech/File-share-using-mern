@@ -1,9 +1,8 @@
 const express = require('express');
-const uploadFileMulter = require('../config/uploadFileMulter');
-const {createFile} =  require("../controller/fileControllers.js");
+const router = express.Router();
+const { createFile } = require('../controller/fileControllers');
 
-const fileRouter = express.Router();
 
-fileRouter.route("/").post(uploadFileMulter.single("file"),createFile);
+router.post('/', createFile);
 
-module.exports = fileRouter;
+module.exports = router;

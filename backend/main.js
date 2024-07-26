@@ -12,6 +12,7 @@ const otpRouter = require("./routes/otpRoutes.js");
 const folderRouter = require("./routes/folderRoutes.js");
 const fileFolderRouter = require("./routes/fileFolderRoutes.js");
 const fileRouter = require("./routes/fileRoutes.js");
+const credentialsRouter = require('./routes/credentialsRoutes.js'); // Update import
 
 // Initialize Express app
 const app = express();
@@ -25,9 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
 app.use("/api/v1/auth", authRouter);
-app.use(verifyToken); // Middleware to verify token
+app.use(verifyToken); 
 app.use("/api/v1/otp", otpRouter);
 app.use("/api/v1/folder", folderRouter);
+app.use('/api/v1/cloudinary-credentials', credentialsRouter); 
 app.use("/api/v1/file", fileRouter);
 app.use("/api/v1/file-folder", fileFolderRouter);
 
