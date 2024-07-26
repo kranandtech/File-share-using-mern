@@ -1,17 +1,22 @@
 require("dotenv").config();
 require("./config/db.js");
-const authRouter = require("./routes/authRoutes.js");
-const otpRouter = require("./routes/otpRoutes.js");
-const folderRouter = require("./routes/folderRoutes.js");
-const fileFolderRouter = require("./routes/fileFolderRoutes.js");
-const fileRouter = require("./routes/fileRoutes.js");
 
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const verifyToken = require("./middlewares/verifyToken.js");
 
+// Import API routers
+const authRouter = require("./routes/authRoutes.js");
+const otpRouter = require("./routes/otpRoutes.js");
+const folderRouter = require("./routes/folderRoutes.js");
+const fileFolderRouter = require("./routes/fileFolderRoutes.js");
+const fileRouter = require("./routes/fileRoutes.js");
+
+// Initialize Express app
 const app = express();
+
+// Middleware
 app.use(cors({ origin: true }));
 app.use(express.json());
 
@@ -34,5 +39,5 @@ app.get('*', (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`------------- App listening on port ${PORT} ------------`);
+    console.log(`Server is running on port ${PORT}`);
 });
