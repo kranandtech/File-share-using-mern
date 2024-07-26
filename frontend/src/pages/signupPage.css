@@ -1,11 +1,11 @@
-/* SignupPage.css */
+
 
 .signup-page {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align items to the top */
-    min-height: 100vh; /* Ensure the page takes up at least the viewport height */
-    padding: 50px 0; /* Add some padding for spacing */
+    align-items: flex-start; 
+    min-height: 100vh; 
+    padding: 50px 0; 
     background-color: #f5f5f5;
   }
   
@@ -38,7 +38,7 @@
   .signup-container button {
     width: 100%;
     padding: 12px;
-    background-color: #4caf50; /* Green color for sign-up button */
+    background-color: #4caf50; 
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -47,13 +47,13 @@
   }
   
   .signup-container button:hover {
-    background-color: #45a049; /* Darker green color on hover */
+    background-color: #45a049; 
   }
   
   .login-link {
     margin-top: 20px;
     font-size: 14px;
-    color: #007bff; /* Blue color for login link */
+    color: #007bff; 
     cursor: pointer;
   }
   

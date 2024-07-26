@@ -1,11 +1,11 @@
-/* LoginPage.css */
+
 
 .login-page {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align items to the top */
-    min-height: 100vh; /* Ensure the page takes up at least the viewport height */
-    padding: 50px 0; /* Add some padding for spacing */
+    align-items: flex-start; 
+    min-height: 100vh; 
+    padding: 50px 0;
     background-color: #f5f5f5;
   }
   
