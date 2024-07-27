@@ -5,7 +5,6 @@ import Navbar from "../components/navbar";
 import useCreateFolder from "../hooks/useCreateFolder";
 import useGetFileFolders from "../hooks/useGetFileFolders";
 import useUploadFile from "../hooks/useUploadFile";
-import useDeleteFileFolder from "../hooks/useDeleteFileFolder";
 import './homePage.css';
 
 const HomePage = () => {
@@ -15,7 +14,6 @@ const HomePage = () => {
     const [loading, setLoading] = useState(false);
     const { createFolder } = useCreateFolder();
     const { getFileFolders, fileFolders } = useGetFileFolders();
-    const { deleteFileFolder } = useDeleteFileFolder();
     const auth = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const { isUploadAllowed, uploadFile } = useUploadFile();
@@ -80,18 +78,7 @@ const HomePage = () => {
         }
     };
 
-    const handleDelete = async (id) => {
-        const confirmed = window.confirm("Are you sure you want to delete this item?");
-        if (confirmed) {
-            setLoading(true);
-            const success = await deleteFileFolder(id);
-            setLoading(false);
-            if (success) {
-                getFileFolders(parentFolder._id);
-            }
-        }
-    };
-
+    
     const closeModal = () => {
         setShowCreateFolder(false);
         setNewFolder(""); // Clear the folder name input when closing the modal
@@ -141,7 +128,7 @@ const HomePage = () => {
                             onDoubleClick={() => handleDoubleClick(elem)}
                         >
                             <p>{elem.name}</p>
-                            <button className="delete-button" onClick={() => handleDelete(elem._id)}></button>
+                           
                         </div>
                     ))
                 ) : (
